@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @RequiredArgsConstructor
-@Controller("deposit")
+@Controller
+@RequestMapping(path = "/deposit")
 public class DepositController {
 
     private final DepositService depositService;
@@ -21,12 +23,16 @@ public class DepositController {
     @GetMapping
     public String deposit(Model model) {
         model.addAttribute("deposit", new Deposit());
+
+        System.out.println("RETURB BANK");
         return "bank";
     }
 
     @PostMapping
     public void deposit(@ModelAttribute("deposit") Deposit deposit) {
         log.debug("Request to deposit money.");
+
+        System.out.println("Controller deposit: " + deposit);
         depositService.deposit(deposit);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class RegistrationController {
         User user = userService.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             log.debug("User with email {} was login.", email);
-            return "bank";
+            return "redirect:/deposit";
         } else {
             log.debug("User with email {} does not exists.", email);
             model.addAttribute("error", "Email or password is incorrect.");
@@ -49,13 +50,12 @@ public class RegistrationController {
     public String registration(Model model) {
         log.debug("Registration page was opened.");
         model.addAttribute("userForm", new User());
-        model.addAttribute("error");
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String saveUser(@ModelAttribute("userForm") User user, Model model) {
-        if (!user.getPassword().equals(user.getPasswordConfirm())) {
+    public String saveUser(@ModelAttribute("userForm") User user, @RequestParam("passwordConfirm") String passwordConfirm, Model model) {
+        if (!user.getPassword().equals(passwordConfirm)) {
             log.debug("Passwords do not match.");
             model.addAttribute("error", "password do not match");
             return "registration";
@@ -67,7 +67,7 @@ public class RegistrationController {
         } else {
             userService.save(user);
             log.debug("User with email: {} was registered.", user.getEmail());
-            return "bank";
+            return "redirect:/deposit";
         }
     }
 }
