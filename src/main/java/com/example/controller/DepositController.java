@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.example.domain.AuthenticatedUser;
 import com.example.domain.Deposit;
 import com.example.service.DepositService;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,18 @@ public class DepositController {
 
     private final DepositService depositService;
 
+    private final AuthenticatedUser authenticatedUser;
+
     @GetMapping
     public String deposit(Model model) {
         model.addAttribute("deposit", new Deposit());
-
-        System.out.println("RETURB BANK");
         return "bank";
     }
 
     @PostMapping
     public void deposit(@ModelAttribute("deposit") Deposit deposit) {
         log.debug("Request to deposit money.");
-
-        System.out.println("Controller deposit: " + deposit);
-        depositService.deposit(deposit);
+        deposit.setUser(authenticatedUser.getUser());
+        depositService.save(deposit);
     }
 }

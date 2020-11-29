@@ -13,8 +13,8 @@
 <div class="container">
     <form class="form-control" method="post" th:action="@{/deposit}" th:object="${deposit}">
         <h2 class="form-signin-heading">Choose one of the following options</h2>
-        <input type="number" th:field="*{value}" class="form-control" placeholder="Deposit value"
-               th:autofocus="autofocus">
+        <input class="form-control" placeholder="Deposit value" th:autofocus="autofocus" th:field="*{value}"
+               type="number">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form>

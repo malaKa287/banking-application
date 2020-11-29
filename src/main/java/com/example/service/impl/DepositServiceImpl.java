@@ -16,7 +16,7 @@ public class DepositServiceImpl implements DepositService {
     private final DepositRepository depositRepository;
 
     @Override
-    public void deposit(@NotNull Deposit deposit) {
+    public void save(@NotNull Deposit deposit) {
         depositRepository.save(deposit);
         log.debug("Deposit with id: {} was saved.", deposit.getId());
     }

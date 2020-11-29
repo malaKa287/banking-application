@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.domain.AuthenticatedUser;
 import com.example.domain.User;
 import com.example.service.UserService;
 import javax.validation.constraints.NotBlank;
@@ -22,6 +23,8 @@ public class RegistrationController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final AuthenticatedUser authenticatedUser;
+
     @GetMapping({"/", "/login"})
     public String login(Model model, @ModelAttribute("email") String email,
                         @ModelAttribute("password") String password) {
@@ -38,6 +41,8 @@ public class RegistrationController {
         User user = userService.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             log.debug("User with email {} was login.", email);
+            authenticatedUser.setUser(user);
+
             return "redirect:/deposit";
         } else {
             log.debug("User with email {} does not exists.", email);
@@ -67,6 +72,7 @@ public class RegistrationController {
         } else {
             userService.save(user);
             log.debug("User with email: {} was registered.", user.getEmail());
+            authenticatedUser.setUser(user);
             return "redirect:/deposit";
         }
     }

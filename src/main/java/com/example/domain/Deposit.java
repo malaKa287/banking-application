@@ -3,28 +3,40 @@ package com.example.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
+@Validated
 @Entity
 @Table(name = "DEPOSIT")
-@Validated
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Deposit {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private String id;
+    @Setter(value = AccessLevel.NONE)
+    private Long id;
 
     @Column
     @NotNull
     private Integer value;
 
-    @OneToOne(mappedBy = "deposit")
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
 }

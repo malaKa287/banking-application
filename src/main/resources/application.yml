@@ -9,8 +9,10 @@ spring:
       path: /h2
   datasource:
     url: jdbc:h2:mem:bankdb
-    username: admin
-    password: admin
+    username: sa
+    password:
     driverClassName: org.h2.Driver
-
+  jpa:
+  hibernate:
+    ddl-auto: update
 
