@@ -30,9 +30,19 @@ public class DepositController {
     }
 
     @PostMapping
-    public void deposit(@ModelAttribute("deposit") Deposit deposit) {
+    public String deposit(@ModelAttribute("deposit") Deposit deposit, Model model) {
         log.debug("Request to deposit money.");
+        //TODO add validator
+        if (deposit.getValue() == null) {
+            model.addAttribute("error", "Invalid value");
+            return "bank";
+        } else if (deposit.getValue() <= 0) {
+            model.addAttribute("error", "Invalid value");
+            return "bank";
+        }
         deposit.setUser(authenticatedUser.getUser());
         depositService.deposit(deposit);
+        model.addAttribute("message",String.format("Deposit was increased by:%s$", deposit.getValue()));
+        return "bank";
     }
 }

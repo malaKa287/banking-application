@@ -6,20 +6,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="/css/main.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(https://i.pinimg.com/originals/df/9c/38/df9c38eb8692f183b285f31997023676.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+<h2 class="form-signin-heading" th:align="center">Choose one of the following options</h2>
+
+<div class="base-container">
+
     <form class="form-control" method="post" th:action="@{/deposit}" th:object="${deposit}">
-        <h2 class="form-signin-heading">Choose one of the following options</h2>
+        <p class="alert alert-danger notification" role="alert" th:if="${error != null}" th:text="${error}"></p>
+        <p class="green-notification" role="alert" th:if="${message != null}" th:text="${message}"></p>
         <input class="form-control" placeholder="Deposit value" th:autofocus="autofocus" th:field="*{value}"
                type="number">
-
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form>
 
 </div>
+
 
 </body>
 </html>
