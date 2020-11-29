@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +20,6 @@ import org.springframework.validation.annotation.Validated;
 @Table(name = "DEPOSIT")
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 public class Deposit {
 
@@ -39,4 +37,12 @@ public class Deposit {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Override
+    public String toString() {
+        return "Deposit{" +
+                "id=" + id +
+                ", value=" + value +
+                ", userId=" + user.getId() +
+                '}';
+    }
 }

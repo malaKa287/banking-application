@@ -33,6 +33,6 @@ public class DepositController {
     public void deposit(@ModelAttribute("deposit") Deposit deposit) {
         log.debug("Request to deposit money.");
         deposit.setUser(authenticatedUser.getUser());
-        depositService.save(deposit);
+        depositService.deposit(deposit);
     }
 }

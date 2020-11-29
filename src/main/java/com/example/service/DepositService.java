@@ -7,5 +7,6 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface DepositService {
 
-    void save(@NotNull Deposit deposit);
+    void deposit(@NotNull Deposit deposit);
+
 }

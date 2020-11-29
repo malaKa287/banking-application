@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-@Repository
 @Validated
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
     @Transactional(readOnly = true)

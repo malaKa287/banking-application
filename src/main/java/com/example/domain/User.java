@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +20,6 @@ import org.springframework.validation.annotation.Validated;
 @Table(name = "USER")
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 public class User {
 
@@ -43,4 +41,13 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Deposit deposit;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", depositId=" + deposit.getId() +
+                '}';
+    }
 }
