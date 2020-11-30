@@ -28,7 +28,19 @@
         <input class="form-control" placeholder="Deposit value" th:autofocus="autofocus" th:field="*{value}"
                type="number">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+        <select name="operationType" th:name="operationType">
+            <option th:each="operationType : ${T(com.example.service.operation.OperationType).values()}"
+                    th:value="${operationType}" th:text="${operationType.getDisplayType()}"></option>
+        </select>
+
+        <p class="green-notification" role="alert" th:if="${currentDeposit != null}" th:text="${currentDeposit}"></p>
+<!--        <button class="btn btn-lg btn-primary btn-block" th:action="@{/deposit/__${deposit.getUser().getId()}__} " th:method="get"-->
+
+
     </form>
+    <button class="btn btn-lg btn-primary btn-block" th:action="@{/deposit/current} " th:method="get"
+            type="submit">Show my deposit</button>
 
 </div>
 

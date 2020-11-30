@@ -42,7 +42,7 @@ public class Deposit {
         return "Deposit{" +
                 "id=" + id +
                 ", value=" + value +
-                ", userId=" + user.getId() +
+                //", userId=" + user.getId() +
                 '}';
     }
 }

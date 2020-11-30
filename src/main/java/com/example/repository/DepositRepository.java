@@ -14,7 +14,13 @@ import org.springframework.validation.annotation.Validated;
 @Repository
 public interface DepositRepository extends CrudRepository<Deposit, Long> {
 
+    @Transactional(readOnly = true)
     Optional<Deposit> findByUserId(@NotNull Long userId);
+
+    @Transactional(readOnly = true)
+    @Query(nativeQuery = true, value = "SELECT Deposit.value FROM Deposit d WHERE d.user.id =: ?1")
+    //@Query("SELECT Deposit.value FROM Deposit d WHERE d.user.id = ?1")
+    Optional<Integer> findDepositValueByUserId(@NotNull Long userId);
 
     @Transactional
     @Modifying
